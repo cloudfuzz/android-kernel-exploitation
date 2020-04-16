@@ -1,0 +1,31 @@
+{
+    "title": "Android Kernel Exploitation",
+    "author": "Ashfaq Ansari (@HackSysTeam)",
+    "plugins": [
+        "-livereload",
+        "-highlight",
+        "collapsible-chapters",
+        "github",
+        "sharing",
+        "ga",
+        "prism",
+        "prism-themes"
+    ],
+    "pluginsConfig": {
+        "fontsettings": {
+            "theme": "night",
+            "family": "sans"
+        },
+        "github": {
+            "url": "https://github.com/cloudfuzz/android-kernel-exploitation"
+        },
+        "ga": {
+            "token": "UA-163782039-1"
+        },
+        "prism": {
+            "css": [
+                "prism-themes/themes/prism-atom-dark.css"
+            ]
+        }
+    }
+}
