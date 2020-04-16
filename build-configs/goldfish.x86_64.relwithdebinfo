@@ -1,0 +1,33 @@
+ARCH=x86_64
+BRANCH=relwithdebinfo
+
+CC=clang
+CLANG_PREBUILT_BIN=prebuilts-master/clang/host/linux-x86/clang-r377782b/bin
+BUILDTOOLS_PREBUILT_BIN=build/build-tools/path/linux-x86
+CLANG_TRIPLE=x86_64-linux-gnu-
+CROSS_COMPILE=x86_64-linux-androidkernel-
+LINUX_GCC_CROSS_COMPILE_PREBUILTS_BIN=prebuilts/gcc/linux-x86/x86/x86_64-linux-android-4.9/bin
+
+KERNEL_DIR=goldfish
+EXTRA_CMDS=''
+STOP_SHIP_TRACEPRINTK=1
+
+FILES="
+arch/x86/boot/bzImage
+vmlinux
+System.map
+"
+
+DEFCONFIG=x86_64_ranchu_defconfig
+POST_DEFCONFIG_CMDS="check_defconfig && update_debug_config"
+
+function update_debug_config() {
+    ${KERNEL_DIR}/scripts/config --file ${OUT_DIR}/.config \
+         -e CONFIG_FRAME_POINTER \
+         -e CONFIG_DEBUG_INFO \
+         -d CONFIG_DEBUG_INFO_REDUCED \
+         -d CONFIG_KERNEL_LZ4 \
+         -d CONFIG_RANDOMIZE_BASE
+    (cd ${OUT_DIR} && \
+     make O=${OUT_DIR} $archsubarch CROSS_COMPILE=${CROSS_COMPILE} olddefconfig)
+}
